@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.3'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.0.1"
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven{
+            credentials {
+                username ARTIFACT_USERNAME
+                password ARTIFACT_USERPWD
+            }
+            url "http://localhost:8081/artifactory/libs-release-local"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.14.1'
+}
